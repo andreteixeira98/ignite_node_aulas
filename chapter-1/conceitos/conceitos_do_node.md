@@ -78,9 +78,9 @@
 * Query Params - 
   * http://enderecosite.com/search?page=2&limit=50
 
-  * <p style="color:blue"> chave</p>
-  * <p style="color:yellow">valor</p>
-  * <p style="color:red">separador</p>
+  * <small style="color:blue"> chave</small>
+  * <small style="color:yellow">valor</small>
+  * <small style="color:red">separador</small>
 
 * Route Params
   * http://endereco.com/users/{id}
@@ -111,3 +111,19 @@
 
   * Atualização de um  usuarios - PATCH 
     * <p style="color:blue">  http://endereco.com/v1/users/1/newdatas</p>
+
+    # Tipos de parametros
+
+    - Route params
+      - parametros da rota, sao obrigatorios
+      -  http://endereco/users
+      -  http://endereco/users/:id
+    - Query params
+      - parametros de consulta, sao opcionais
+        - http://endereco/users?page=1&limit=10
+    - Body params
+      - parametros do corpo da requisição
+      - ```json
+          "name":"andre",
+          "age":23
+        ```

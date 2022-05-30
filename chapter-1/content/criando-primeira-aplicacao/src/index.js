@@ -79,6 +79,30 @@ app.post('/withdraw',verifyIfExistsAccountCpf,(req,res)=>{
 })
 
 
+app.patch("/account",verifyIfExistsAccountCpf, (req, res)=>{
+    const {name} = req.body;
+    const {customer} = req;
+
+    customer.name = name;
+
+
+    return res.status(200).send();
+});
+
+app.delete("/account/", verifyIfExistsAccountCpf,(req, res)=>{
+    const {customer} = req;
+     customers.splice(customers.indexOf(customer), 1);
+
+    return res.status(200).json(customers);
+});
+
+app.get("/account/", verifyIfExistsAccountCpf,(req, res)=>{
+    const {customer} = req;
+    
+
+    return res.status(201).json(customer);
+});
+
 
 app.get('/statement/date', verifyIfExistsAccountCpf,(req,res)=>{
     const {date} = req.query;
@@ -98,10 +122,16 @@ app.get('/statement/date', verifyIfExistsAccountCpf,(req,res)=>{
     return res.json(statement);
 })
 
-app.get('/account',(req,res)=>{
+app.get('/accounts',(req,res)=>{
 
+     return res.json(customers);
+})
+
+app.get('/account/', verifyIfExistsAccountCpf,(req,res)=>{
+
+    const {customer} = req;
     
-    return res.json(customers);
+    return res.status(200).json(customer);
 })
 
 //middleware
@@ -120,6 +150,14 @@ function verifyIfExistsAccountCpf(req, res, next){
 
 app.get('/statement/',verifyIfExistsAccountCpf, (req,res)=>{
     return res.json(req.customer);
+})
+
+app.get("/account/balance",verifyIfExistsAccountCpf,(req,res)=>{
+    const {customer} = req;
+
+    const balance = getBalance(customer.statement);
+
+    return res.json(balance);
 })
 
 function getBalance(statement){

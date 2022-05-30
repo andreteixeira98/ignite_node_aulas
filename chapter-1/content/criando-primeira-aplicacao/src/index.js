@@ -11,6 +11,8 @@ const customers = [
     
 ];
 
+
+
 app.post('/account',(request, response)=>{
     const {cpf, name} = request.body;
 
@@ -36,7 +38,7 @@ app.post('/account',(request, response)=>{
 });
 
 app.post("/deposit",verifyIfExistsAccountCpf,(req,res)=>{
-    const {description, amount} = req.body;
+    const {description, amount, type} = req.body;
 
     const {customer}= req;
 
@@ -44,7 +46,7 @@ app.post("/deposit",verifyIfExistsAccountCpf,(req,res)=>{
         description,
         amount,
         created_at: new Date(),
-        type:'credit'
+        type
     }
 
     customer.statement.push(statementOperation);
@@ -55,15 +57,45 @@ app.post("/deposit",verifyIfExistsAccountCpf,(req,res)=>{
 
 })
 
-app.get('/statement/:cpf',(req,res)=>{
-    const {cpf} = req.params;
+app.post('/withdraw',verifyIfExistsAccountCpf,(req,res)=>{
+    const {amount} = req.body;
+    const {customer} = req;
 
-    const customer = customers.find((customer)=> customer.cpf === cpf);
+    const balance = getBalance(customer.statement);
 
-    if(!customer){
-        return res.status(400).json({error:"Customer Not Found"})
+    if(balance < amount){
+        return res.status(400).json({message:"insufficient funds!"})
     }
-    return res.json(customer.statement);
+
+    const statementOperation={
+        amount,
+        created_at: new Date(),
+        type:'debit'
+    }
+
+    customer.statement.push(statementOperation);
+
+    return res.status(201).send();
+})
+
+
+
+app.get('/statement/date', verifyIfExistsAccountCpf,(req,res)=>{
+    const {date} = req.query;
+    const {customer} = req;
+
+    const dateFormat = new Date(date + " 00:00");
+
+
+    const statement = customer.statement.filter(
+        statement=> 
+         statement.created_at.toDateString() === 
+         new Date(dateFormat).toDateString()
+    );
+
+    
+
+    return res.json(statement);
 })
 
 app.get('/account',(req,res)=>{
@@ -89,6 +121,18 @@ function verifyIfExistsAccountCpf(req, res, next){
 app.get('/statement/',verifyIfExistsAccountCpf, (req,res)=>{
     return res.json(req.customer);
 })
+
+function getBalance(statement){
+   const balance =  statement.reduce((acc, operation)=>{
+        if(operation.type==='credit'){
+            return acc + operation.amount;
+        }else{
+            return acc - operation.amount;
+        }
+    },0)
+
+    return balance;
+}
 
 
 //route params

@@ -100,7 +100,7 @@ app.get("/account/", verifyIfExistsAccountCpf,(req, res)=>{
     const {customer} = req;
     
 
-    return res.status(201).json(customer);
+    return res.status(200).json(customer);
 });
 
 

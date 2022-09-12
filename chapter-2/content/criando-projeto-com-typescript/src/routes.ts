@@ -10,5 +10,5 @@ export function createCourse(req:Request, res:Response){
         course
     })
 
-    res.status(200).json({messeger:"ok"});
+    return res.status(200).json({messeger:"ok"});
 }

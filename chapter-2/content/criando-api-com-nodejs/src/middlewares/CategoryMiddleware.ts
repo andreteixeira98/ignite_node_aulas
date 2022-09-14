@@ -7,8 +7,8 @@ export default class CategoryMiddlleware{
         private categoryRepository:CategoryRepository;
 
 
-         constructor(categoryRepository:CategoryRepository){
-            this.categoryRepository = categoryRepository;
+         constructor(){
+            this.categoryRepository = new CategoryRepository();
         }
 
        verifyCategory(req:Request,res:Response, next:NextFunction){

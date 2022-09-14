@@ -5,10 +5,10 @@ interface IcreateCategoryDTO{
     description:string;
 }
 export default class CategoryRepository{
-    private categories:Category[];
+    private static categories:Category[];
 
     constructor(){
-        this.categories = [];
+       CategoryRepository.categories = [];
     }
 
     create({name, description}:IcreateCategoryDTO):void{
@@ -18,14 +18,14 @@ export default class CategoryRepository{
             name, description
         })
 
-        this.categories.push(category);
+        CategoryRepository.categories.push(category);
     }
 
     list():Category[]{
-        return this.categories;
+        return CategoryRepository.categories;
     }
 
     findByname(name:string){
-        return this.categories.find(category=> category.name === name);
+        return CategoryRepository.categories.find(category=> category.name === name);
     }
 }

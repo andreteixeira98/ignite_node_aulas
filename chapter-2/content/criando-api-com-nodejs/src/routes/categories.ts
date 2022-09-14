@@ -1,27 +1,17 @@
-import { NextFunction, Request, Response, Router } from 'express';
+import { Request, Response, Router } from 'express';
+import CategoryMiddlleware from '../middlewares/CategoryMiddleware';
 import CategoryRepository from '../repositories/CategoryRepository';
 
 const categoriesRoutes = Router();
 
 const categoryRepository = new CategoryRepository();
-// const categoryMiddlleware = new CategoryMiddlleware(categoryRepository);
+const categoryMiddlleware = new CategoryMiddlleware();
 
-categoriesRoutes.use(verifyCategory);
-
-
- function verifyCategory(req:Request,res:Response, next:NextFunction){
-
-        const {name} = req.body;
-        const categoryAllReadyExists = categoryRepository.findByname(name);
-        if(categoryAllReadyExists){
-            return res.status(400).json({error:'category Already Exists!'})
-        }
-
-        return next();
-    }
+categoriesRoutes.use(categoryMiddlleware.verifyCategory);
 
 
-categoriesRoutes.post('/',verifyCategory,(req:Request, res:Response)=>{
+
+categoriesRoutes.post('/',categoryMiddlleware.verifyCategory,(req:Request, res:Response)=>{
     const {name, description} = req.body;
 
     categoryRepository.create({name,description});

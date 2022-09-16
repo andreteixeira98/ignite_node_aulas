@@ -1,15 +1,16 @@
 import { Request, Response, NextFunction } from "express";
-import CategoryRepository from "../repositories/CategoryRepository";
+import CategoryRepository from "../modules/cars/repositories/CategoryRepository";
 
 
 
 export default class CategoryMiddlleware{
         private categoryRepository:CategoryRepository;
 
-
-         constructor(){
-            this.categoryRepository = new CategoryRepository();
+        constructor(categoryRepository:CategoryRepository){
+            this.categoryRepository = categoryRepository;
         }
+
+       
 
        verifyCategory(req:Request,res:Response, next:NextFunction){
 

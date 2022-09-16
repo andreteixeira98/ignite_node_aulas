@@ -1,6 +1,6 @@
 import {v4 as uuidV4} from 'uuid';
 
-export default class Category{
+export default class Categories{
     
     id?:string;
     name:string;

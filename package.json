@@ -5,10 +5,10 @@
   "repository": "https://github.com/andreteixeira98/ignite_node_aulas.git",
   "author": "andreteixeira98 <andreteixeiracbjr@gmail.com>",
   "license": "MIT",
-  "husky":{
-     "hooks":{
-      "commit-msg":"commitlint -E HUSKY_GIT_PARAMS"
-     }
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",

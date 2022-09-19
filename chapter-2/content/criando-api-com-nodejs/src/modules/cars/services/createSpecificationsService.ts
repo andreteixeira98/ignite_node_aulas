@@ -1,4 +1,4 @@
-import { IcreateSpecificationsDTO, ISpecificationsRepository } from "../repositories/ISpecificationsRepository";
+import { IcreateSpecificationsDTO, ISpecificationsRepository } from "../repositories/implementations/ISpecificationsRepository";
 
 
 interface IRequest{

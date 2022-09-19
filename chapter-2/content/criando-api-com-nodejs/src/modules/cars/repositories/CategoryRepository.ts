@@ -6,10 +6,22 @@ export interface IcreateCategoryDTO{
     description:string;
 }
 export default class CategoryRepository implements ICategoryRepository{
+    
+
     private categories:Categories[];
 
-    constructor(){
-       this.categories = [];
+    private static INSTACE:CategoryRepository;
+
+    private constructor(){
+      this.categories = [];
+    }
+
+    static getInstance():CategoryRepository{
+
+        if(!CategoryRepository.INSTACE){
+            CategoryRepository.INSTACE = new CategoryRepository();
+        }
+        return CategoryRepository.INSTACE;
     }
 
     create({name, description}:IcreateCategoryDTO):void{

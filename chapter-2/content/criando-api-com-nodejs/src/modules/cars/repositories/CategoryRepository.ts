@@ -1,5 +1,5 @@
-import Categories from "../models/Categories";
-import { ICategoryRepository } from "./ICategoryRepository";
+import {Category} from "../models/Category";
+import { ICategoryRepository } from "./interfacies/ICategoryRepository";
 
 export interface IcreateCategoryDTO{
     name:string;
@@ -8,7 +8,7 @@ export interface IcreateCategoryDTO{
 export default class CategoryRepository implements ICategoryRepository{
     
 
-    private categories:Categories[];
+    private categories:Category[];
 
     private static INSTACE:CategoryRepository;
 
@@ -25,7 +25,7 @@ export default class CategoryRepository implements ICategoryRepository{
     }
 
     create({name, description}:IcreateCategoryDTO):void{
-        const category = new Categories();
+        const category = new Category();
 
         Object.assign(category,{
             name, description
@@ -34,7 +34,7 @@ export default class CategoryRepository implements ICategoryRepository{
         this.categories.push(category);
     }
 
-    list():Categories[]{
+    list():Category[]{
         return this.categories;
     }
 

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import {parse} from 'csv-parse';
-import CategoryRepository from '../../repositories/CategoryRepository';
+import CategoryRepository from '../../repositories/implementations/CategoryRepository';
 
 
 interface IimportCategory{
@@ -18,7 +18,7 @@ class ImportCategoryUseCase{
     loadCategories(file:Express.Multer.File):Promise<IimportCategory[]>{
        
        return new Promise((resolve,reject)=>{
-         const stream = fs.createReadStream(file.path);
+        const stream = fs.createReadStream(file.path);
         const categories:IimportCategory[] = [];
 
         const parseFile = parse({

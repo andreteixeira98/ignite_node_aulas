@@ -12,8 +12,6 @@ class ImportCategoryController{
 
     import(req:Request, res:Response){
         const {file} = req;
-    
-
         this.importCategoryUseCase.execute(file);
 
         return res.send();

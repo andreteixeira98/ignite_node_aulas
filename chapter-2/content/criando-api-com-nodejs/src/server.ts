@@ -9,7 +9,7 @@ import { router } from './routes';
 
 const app = express();
 app.use(express.json());
-app.use('/api-docs',swagerUI.serve,swagerUI.setup(swaggerDocument));
+app.use('/api-docs',swagerUI.serve, swagerUI.setup(swaggerDocument));
 app.use(router);
 
 

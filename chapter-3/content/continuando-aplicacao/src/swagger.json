@@ -1,0 +1,82 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentation API",
+        "description": "documentation api with swagger",
+        "version": "1.0.0",
+        "contact": {
+            "email": "andreteixeiracbjr@gmail.com"
+        }
+    },
+    "paths": {
+        "/categories": {
+            
+            "post": {
+                "tags":["categories"],
+                "summary": "create category",
+                "description": "create new category",
+                "requestBody":{
+                    "required":"true",
+                    "content":{
+                        "aplication/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "name": {
+                                        "type":"string"
+                                    },
+                                    "description":{
+                                        "type":"string"
+                                    }
+                                }, 
+                                "example":{
+                                    "name":"name sample",
+                                    "description":"description sample"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description":"confirmation create new category"
+                        
+                    },
+                    "500":{
+                        "description":"category already exist"
+                    }
+                }       
+            },
+            "get":{
+                "tags":["categories"],
+                "summary":"list all categories",
+                "description":"list all categoriea",
+                "responses":{
+                    "200":{
+                        "description":"Success",
+                        "content":{
+                            "aplication/json":{
+                                "schema":{
+                                    "type":"array",
+                                    "items":{
+                                        "type":"object",
+                                        "properties":{
+                                            "name":{
+                                                "type":"string"
+                                               
+                                            },
+                                            "description":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+}
